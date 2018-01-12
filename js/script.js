@@ -118,13 +118,14 @@ function checkRoundWinner(playerPick, computerPick) {
 function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
+    checkGameOfGamesWinner();
 }
 
 //Funkcja sprawdzająca, czy któryś z graczy zdobył 10 punktów
 function checkGameOfGamesWinner() {
     if (player.score == 10) {
         gameState = 'ended';
-        alert('Congratulations, ' + player.name + 'You win!');
+        alert('Congratulations, ' + player.name + '! You win!');
         setGameElements();
     }
     else if (computer.score == 10) {
