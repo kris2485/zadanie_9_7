@@ -1,8 +1,10 @@
 // scripts.js
+// Przycisk inicjujący nową grę
 var newGameBtn = document.getElementById('js-newGameButton');
 
 newGameBtn.addEventListener('click', newGame);
 
+//Wskazanie co się będzie działo po kliknięciu na przysciski
 var pickRock = document.getElementById('js-playerPick_rock'),
      pickPaper = document.getElementById('js-playerPick_paper'),
      pickScissors = document.getElementById('js-playerPick_scissors');
@@ -11,6 +13,7 @@ pickRock.addEventListener('click', function() { playerPick('rock') });
 pickPaper.addEventListener('click', function() { playerPick('paper') });
 pickScissors.addEventListener('click', function() { playerPick('scissors') });
 
+//Wartości początkowe
 var gameState = 'notStarted',  //started // ended
     player = {
         name: '',
@@ -19,9 +22,12 @@ var gameState = 'notStarted',  //started // ended
     computer = {
         score: 0
     }
+//id elementów - zmienne, które będą wskazywać na elementy gry, a konkretnie jej poszczególne części
 var newGameElem = document.getElementById('js-newGameElement'),
 pickElem = document.getElementById('js-playerPickElement'),
 resultsElem = document.getElementById('js-resultsTableElement');
+
+//funkcja definująca jak elementy będą się wyświetlać w zależności od stanu gry
 function setGameElements() {
   switch(gameState) {
     case 'started':
@@ -38,9 +44,13 @@ function setGameElements() {
         resultsElem.style.display = 'none';
   }
 }
+//zdefiniowanie zmiennych odnoszących się do elemwntów na stronie -->
+//--> po kolei jest to punktacja gracza, imię gracza wyświetlane na stronie oraz punktacja komputera
 var playerPointsElem = document.getElementById('js-playerPoints'),
     playerNameElem = document.getElementById('js-playerName'),
     computerPointsElem = document.getElementById('js-computerPoints');
+
+//Zdefiniowanie funkcji, która będzie uruchamiana po wciśnięciu przycisku "New Game" / "Play Again"
   function newGame() {
   player.name = prompt('Please enter your name', 'imię gracza');
   if (player.name) {
@@ -49,16 +59,19 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
     setGameElements();
 
     playerNameElem.innerHTML = player.name;
-    // setGamePoints(); // This function has not been created yet
+    setGamePoints();
   }
 }
+//Funkcja, która odpowiada za pobranie wyboru gracza
 function playerPick(playerPick) {
     console.log(playerPick);
 }
+//Funkcja losująca wybór komputera
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
     return possiblePicks[Math.floor(Math.random()*3)];
 }
+//Umieszczanie wyborów gracza ora komputera na stronie
 var playerPickElem = document.getElementById('js-playerPick'),
     computerPickElem = document.getElementById('js-computerPick'),
     playerResultElem = document.getElementById('js-playerResult'),
@@ -68,7 +81,11 @@ function playerPick(playerPick) {
 
     playerPickElem.innerHTML = playerPick;
     computerPickElem.innerHTML = computerPick;
+
+    checkRoundWinner(playerPick, computerPick);
 }
+
+//Logika gry i przyznawanie punktów
 function checkRoundWinner(playerPick, computerPick) {
   playerResultElem.innerHTML = computerResultElem.innerHTML = '';
 
@@ -91,20 +108,13 @@ function checkRoundWinner(playerPick, computerPick) {
         computerResultElem.innerHTML = "Win!";
         computer.score++;
     }
-
 }
-function playerPick(playerPick) {
-    var computerPick = getComputerPick();
-
-    playerPickElem.innerHTML = playerPick;
-    computerPickElem.innerHTML = computerPick;
-
-    checkRoundWinner(playerPick, computerPick);
-}
+//Aktualizacja wyniku
 function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
 }
+//Funkcja sprawdzająca, czy któryś z graczy zdobył 10 punktów
 function checkGameWinner () {
     if(player.score == 10) {
         gameState = 'ended';
