@@ -105,3 +105,15 @@ function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
 }
+function checkGameWinner () {
+    if(player.score == 10) {
+        gameState = 'ended';
+        alert('Congratulations, ' + player.name +'! You win!');
+        setGameElements();
+    }
+    if(computer.score == 10) {
+        gameState = 'ended';
+        alert('You lose!');
+        setGameElements();
+    }
+}
