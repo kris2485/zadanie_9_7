@@ -44,6 +44,8 @@ function setGameElements() {
         resultsElem.style.display = 'none';
   }
 }
+setGameElements();
+
 //zdefiniowanie zmiennych odnoszących się do elemwntów na stronie -->
 //--> po kolei jest to punktacja gracza, imię gracza wyświetlane na stronie oraz punktacja komputera
 var playerPointsElem = document.getElementById('js-playerPoints'),
@@ -62,6 +64,7 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
     setGamePoints();
   }
 }
+
 //Funkcja, która odpowiada za pobranie wyboru gracza
 function playerPick(playerPick) {
     console.log(playerPick);
@@ -108,20 +111,23 @@ function checkRoundWinner(playerPick, computerPick) {
         computerResultElem.innerHTML = "Win!";
         computer.score++;
     }
+    setGamePoints();
 }
+
 //Aktualizacja wyniku
 function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
 }
+
 //Funkcja sprawdzająca, czy któryś z graczy zdobył 10 punktów
-function checkGameWinner () {
-    if(player.score == 10) {
+function checkGameOfGamesWinner() {
+    if (player.score == 10) {
         gameState = 'ended';
-        alert('Congratulations, ' + player.name +'! You win!');
+        alert('Congratulations, ' + player.name + 'You win!');
         setGameElements();
     }
-    if(computer.score == 10) {
+    else if (computer.score == 10) {
         gameState = 'ended';
         alert('You lose!');
         setGameElements();
